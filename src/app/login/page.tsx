@@ -1,33 +1,37 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
 import { useState, FormEvent } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    const result = await signIn('credentials', {
-      password,
-      redirect: false,
-    });
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
 
-    if (result?.error) {
-      setError('Invalid password');
+      if (response.ok) {
+        router.push('/');
+      } else {
+        setError('Invalid password');
+      }
+    } catch (err) {
+      setError('Authentication failed');
+    } finally {
       setLoading(false);
-    } else if (result?.ok) {
-      router.push(callbackUrl);
     }
   };
 
@@ -57,6 +61,7 @@ export default function LoginPage() {
                 placeholder="Enter password"
                 className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                 required
+                disabled={loading}
               />
             </div>
 
