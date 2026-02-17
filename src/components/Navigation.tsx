@@ -1,6 +1,7 @@
 'use client';
 
 import TaskPanel from './TaskPanel';
+import LogoutButton from './LogoutButton';
 
 export default function Navigation() {
   return (
@@ -19,12 +20,12 @@ export default function Navigation() {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-gray-700 p-6 text-xs text-gray-500 space-y-2">
-        <p className="flex items-center gap-2">
+      <div className="border-t border-gray-700 p-6 space-y-3">
+        <p className="flex items-center gap-2 text-xs text-gray-500">
           <span className="inline-block w-2 h-2 bg-cyan-500 rounded-full"></span>
           ONLINE
         </p>
-        <p>Ready for automation</p>
+        <LogoutButton />
       </div>
     </nav>
   );
