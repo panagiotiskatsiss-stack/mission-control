@@ -1,5 +1,7 @@
 'use client';
 
+import LogoutButton from './LogoutButton';
+
 interface NavigationProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
@@ -42,8 +44,9 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
       </div>
 
       {/* Footer */}
-      <div className="text-xs text-slate-500 border-t border-slate-700 pt-4">
-        <p>Connected • Ready</p>
+      <div className="border-t border-slate-700 pt-4 space-y-2">
+        <p className="text-xs text-slate-500">Connected • Ready</p>
+        <LogoutButton />
       </div>
     </nav>
   );

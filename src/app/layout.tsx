@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
 import "./globals.css";
 
 const geist = Geist({
@@ -25,9 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geist.variable} ${geistMono.variable} antialiased bg-slate-950 text-white`}>
-        <div className="min-h-screen">
-          {children}
-        </div>
+        <SessionProvider>
+          <div className="min-h-screen">
+            {children}
+          </div>
+        </SessionProvider>
       </body>
     </html>
   );
