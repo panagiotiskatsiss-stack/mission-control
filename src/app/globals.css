@@ -1,208 +1,40 @@
 @import "tailwindcss";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --color-dark: #0f0f0f;
-  --color-darker: #0a0a0a;
-  --color-surface: #1a1a1a;
-  --color-surface-alt: #2d2d2d;
-  --color-accent-primary: #ff6b35;
-  --color-accent-secondary: #00d9ff;
-  --color-accent-warn: #ffa500;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #b0b0b0;
-  --color-text-tertiary: #808080;
-  --color-border: #3a3a3a;
-  
+@theme {
   --font-display: "Space Mono", monospace;
   --font-body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --color-dark: #0f0f0f;
+  --color-surface: #1a1a1a;
+  --color-border: #3a3a3a;
+  --color-accent-primary: #ff6b35;
+  --color-accent-secondary: #00d9ff;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--color-dark);
-  color: var(--color-text-primary);
-  font-family: var(--font-body);
-  line-height: 1.6;
-  overflow-x: hidden;
-  position: relative;
-}
-
-/* Subtle animated background gradient (very subtle) */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(0, 217, 255, 0.03) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-h1 {
-  font-size: 3.5rem;
-  margin-bottom: 0.5rem;
-}
-
-h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-p {
-  font-family: var(--font-body);
-  color: var(--color-text-secondary);
-}
-
-/* Utility Classes */
-.text-accent {
-  color: var(--color-accent-primary);
-}
-
-.text-accent-secondary {
-  color: var(--color-accent-secondary);
-}
-
-.border-accent {
-  border-color: var(--color-accent-primary);
-}
-
-/* Grid & Layout */
-.container {
-  width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* Smooth Transitions */
-.transition-smooth {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.transition-smooth-fast {
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@layer base {
+  * {
+    @apply transition-colors duration-200;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  body {
+    @apply bg-gray-950 text-white font-body;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold;
   }
 }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
+@layer components {
+  .card {
+    @apply border border-gray-700 rounded-lg bg-gray-900/50 p-6;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+
+  .btn-primary {
+    @apply px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-mono font-bold uppercase text-sm tracking-wide transition-colors;
   }
-}
 
-@keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.3);
+  .btn-secondary {
+    @apply px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg font-mono font-bold uppercase text-sm tracking-wide transition-colors;
   }
-  50% {
-    box-shadow: 0 0 20px 10px rgba(255, 107, 53, 0.1);
-  }
-}
-
-@keyframes pulse-accent {
-  0%, 100% {
-    border-color: var(--color-accent-primary);
-    box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 0 10px rgba(255, 107, 53, 0);
-  }
-}
-
-.animate-fadeInUp {
-  animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.animate-slideInRight {
-  animation: slideInRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.animate-glow {
-  animation: glow 2s ease-in-out infinite;
-}
-
-.animate-pulse-accent {
-  animation: pulse-accent 2s ease-in-out infinite;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-surface);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-accent-primary);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-secondary);
-}
-
-/* Selection */
-::selection {
-  background: var(--color-accent-primary);
-  color: var(--color-dark);
-}
-
-/* Focus States */
-:focus-visible {
-  outline: 2px solid var(--color-accent-primary);
-  outline-offset: 2px;
-}
-
-/* Button Reset */
-button {
-  font-family: var(--font-body);
-  cursor: pointer;
-  border: none;
-  background: none;
-  color: inherit;
 }

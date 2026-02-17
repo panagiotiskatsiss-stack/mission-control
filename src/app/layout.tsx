@@ -15,8 +15,8 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Mission Control",
-  description: "Hermes Business Automation Dashboard",
+  title: "Mission Control - Hermes",
+  description: "Autonomous business automation dashboard",
 };
 
 export default function RootLayout({
@@ -25,16 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body 
-        className={`${spaceMono.variable} ${ibmPlexSans.variable} antialiased`}
-        style={{
-          background: "#0f0f0f",
-          color: "#ffffff",
-        }}
-      >
-        {children}
-      </body>
+    <html lang="en" className={`${spaceMono.variable} ${ibmPlexSans.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

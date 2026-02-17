@@ -1,49 +1,31 @@
 'use client';
 
-import { useState } from 'react';
 import Dashboard from '@/components/Dashboard';
 import Navigation from '@/components/Navigation';
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState('dashboard');
-
   return (
-    <div className="flex h-screen overflow-hidden" style={{ background: '#0f0f0f' }}>
-      {/* Sidebar Navigation */}
-      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+    <div className="flex h-screen bg-gray-950 text-white">
+      {/* Sidebar */}
+      <Navigation />
 
-      {/* Main Content - Asymmetrical Layout */}
+      {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header Bar with diagonal accent */}
-        <div 
-          className="border-b"
-          style={{
-            borderColor: '#3a3a3a',
-            background: 'linear-gradient(135deg, rgba(15,15,15,1) 0%, rgba(26,26,26,0.5) 100%)',
-            backdropFilter: 'blur(10px)',
-            paddingBottom: '1rem',
-          }}
-        >
-          <div className="px-8 py-4 flex items-center justify-between">
+        {/* Header Bar */}
+        <div className="border-b border-gray-700 bg-gray-900/50 backdrop-blur-sm px-8 py-6">
+          <div className="flex items-center justify-between">
             <div>
-              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 700 }}>
-                HERMES
-              </h2>
-              <p style={{ color: '#808080', fontSize: '0.875rem' }}>Autonomous Business Automation</p>
+              <h2 className="font-mono text-xl font-bold tracking-tight">DASHBOARD</h2>
+              <p className="text-xs text-gray-500 uppercase tracking-wide mt-1">System status & operations</p>
             </div>
-            <div style={{
-              fontSize: '2rem',
-              opacity: 0.6,
-            }}>
-              ⚡
-            </div>
+            <div className="text-3xl opacity-50">⚡</div>
           </div>
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-auto">
-          <div className="p-8">
-            {activeTab === 'dashboard' && <Dashboard />}
+        <div className="flex-1 overflow-y-auto">
+          <div className="max-w-4xl mx-auto p-8">
+            <Dashboard />
           </div>
         </div>
       </div>
